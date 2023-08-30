@@ -12,7 +12,7 @@ public enum LocaleKeys implements LocaleKey {
     WHITELIST_ALREADY_ON("<dark_gray> » <white>Group whitelist is <u>already</u> turned <green>on</green>."),
     WHITELIST_OFF("<dark_gray> » <white>Group whitelist is now turned <red>off</red>."),
     WHITELIST_ALREADY_OFF("<dark_gray> » <white>Group whitelist is <u>already</u> turned <red>off</red>."),
-    ;
+    KICK_GROUP_REMOVED("<red>Your group is no longer allowed on this server.");
 
     private final String key, value;
 

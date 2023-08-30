@@ -3,9 +3,12 @@ package voidpointer.spigot.groupwhitelist.command;
 import co.aikar.commands.BaseCommand;
 import co.aikar.commands.annotation.*;
 import lombok.Setter;
+import org.bukkit.Server;
 import org.bukkit.command.CommandSender;
 import voidpointer.spigot.groupwhitelist.config.WhitelistConfig;
+import voidpointer.spigot.groupwhitelist.event.WhitelistGroupRemoveEvent;
 import voidpointer.spigot.groupwhitelist.locale.Locale;
+import voidpointer.spigot.groupwhitelist.locale.LocaleKey;
 import voidpointer.spigot.groupwhitelist.service.WhitelistService;
 
 import java.util.Set;
@@ -24,6 +27,8 @@ public final class GroupWhitelistCommand extends BaseCommand {
     private WhitelistConfig whitelistConfig;
     @Dependency
     private Locale locale;
+    @Dependency
+    private Server server;
 
     @Subcommand("on")
     @CommandPermission("group-whitelist.on")
@@ -53,10 +58,13 @@ public final class GroupWhitelistCommand extends BaseCommand {
     @CommandPermission("group-whitelist.remove")
     @Description("Removes a group from the whitelist")
     private void remove(final CommandSender sender, final String groupName) {
-        sender.sendMessage(locale.get(
-                whitelistService.remove(groupName) ? GROUP_REMOVED : GROUP_ALREADY_REMOVED,
-                unparsed("group", groupName)
-        ));
+        LocaleKey feedbackKey = GROUP_ALREADY_REMOVED;
+        if (whitelistService.remove(groupName)) {
+            feedbackKey = GROUP_REMOVED;
+            server.getPluginManager().callEvent(
+                    new WhitelistGroupRemoveEvent(Set.of(groupName), whitelistConfig.whitelistGroups()));
+        }
+        sender.sendMessage(locale.get(feedbackKey, unparsed("group", groupName)));
     }
 
     @Subcommand("ls")

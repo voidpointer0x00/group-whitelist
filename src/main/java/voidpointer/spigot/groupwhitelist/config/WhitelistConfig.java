@@ -23,6 +23,11 @@ public final class WhitelistConfig {
     @Comment("Whether to filter joining players based on whitelist group")
     private boolean isEnabled = false;
 
+    @Comment("Whether to automatically kick players if their group was removed from the whitelist")
+    private boolean shouldKickRemovedGroups = true;
+
+    public boolean shouldKickRemovedGroups() { return shouldKickRemovedGroups; }
+
     /**
      * Turns on this whitelist and returns
      * {@code true} if the whitelist was not on.
