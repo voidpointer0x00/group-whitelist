@@ -55,6 +55,8 @@ public final class GroupWhitelistPlugin extends JavaPlugin {
             autoReloadConfigService.shutdown();
         else
             getSLF4JLogger().error("Auto reload config service was not initialized, skipped shutdown");
+        if (whitelistListener != null)
+            whitelistListener.shutdown();
         getSLF4JLogger().info("Disabled");
     }
 

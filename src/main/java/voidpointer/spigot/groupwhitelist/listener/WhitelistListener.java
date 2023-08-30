@@ -4,8 +4,12 @@ import lombok.AllArgsConstructor;
 import lombok.Setter;
 import net.kyori.adventure.text.Component;
 import net.luckperms.api.LuckPermsProvider;
+import net.luckperms.api.event.EventSubscription;
+import net.luckperms.api.event.node.NodeRemoveEvent;
 import net.luckperms.api.model.group.Group;
+import net.luckperms.api.model.user.User;
 import net.luckperms.api.model.user.UserManager;
+import net.luckperms.api.node.types.InheritanceNode;
 import net.luckperms.api.query.Flag;
 import net.luckperms.api.query.QueryOptions;
 import org.bukkit.entity.Entity;
@@ -18,7 +22,10 @@ import voidpointer.spigot.groupwhitelist.config.WhitelistConfig;
 import voidpointer.spigot.groupwhitelist.event.WhitelistGroupRemoveEvent;
 import voidpointer.spigot.groupwhitelist.locale.Locale;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.concurrent.Executor;
 
 import static java.util.concurrent.Executors.newSingleThreadExecutor;
@@ -27,6 +34,7 @@ import static org.bukkit.Bukkit.getOnlinePlayers;
 import static org.bukkit.Bukkit.getPlayer;
 import static org.bukkit.event.player.PlayerKickEvent.Cause.WHITELIST;
 import static voidpointer.spigot.groupwhitelist.locale.LocaleKeys.KICK_GROUP_REMOVED;
+import static voidpointer.spigot.groupwhitelist.locale.LocaleKeys.KICK_NO_LONGER_IN_GROUP;
 
 @Setter
 @AllArgsConstructor
@@ -38,6 +46,7 @@ public final class WhitelistListener implements Listener {
 
     private final Executor executorService =
             newSingleThreadExecutor(runnable -> new Thread(runnable, "WhitelistListenerExecutor"));
+    private final List<EventSubscription<NodeRemoveEvent>> luckPermsEventSubscriptions = new ArrayList<>(1);
     private final Plugin plugin;
     private WhitelistConfig whitelistConfig;
     private Locale locale;
@@ -45,7 +54,40 @@ public final class WhitelistListener implements Listener {
     @Contract("_ -> this")
     public WhitelistListener register(@NotNull final Plugin plugin) {
         plugin.getServer().getPluginManager().registerEvents(this, plugin);
+        luckPermsEventSubscriptions.add(LuckPermsProvider.get().getEventBus()
+                .subscribe(plugin, NodeRemoveEvent.class, this::onGroupRemovedFromUser));
         return this;
+    }
+
+    public void shutdown() {
+        try {
+            luckPermsEventSubscriptions.forEach(EventSubscription::close);
+        } catch (final NoClassDefFoundError ignore) {
+            /* happens of full server shutdown if LuckPerms is disabled before us */
+        }
+    }
+
+    public void onGroupRemovedFromUser(final NodeRemoveEvent removeEvent) {
+        /* only listen to parenting group updates */
+        if (!(removeEvent.getNode() instanceof InheritanceNode))
+            return;
+        /* bulk group updates are not supported */
+        if (!(removeEvent.getTarget() instanceof User user))
+            return;
+        /* kick the user if a corresponding online player found */
+        Optional.ofNullable(getPlayer(user.getUniqueId())).ifPresent(player -> {
+            if (!player.isOnline())
+                return;
+            final boolean isAllowed = user.getInheritedGroups(GROUPS_SEARCH_OPTIONS).stream()
+                    .anyMatch(whitelistConfig::isGroupWhitelisted);
+            if (!isAllowed) {
+                player.getScheduler().run(
+                        plugin,
+                        scheduledTask -> player.kick(locale.get(KICK_NO_LONGER_IN_GROUP), WHITELIST),
+                        null
+                );
+            }
+        });
     }
 
     @EventHandler
