@@ -1,7 +1,7 @@
 name: GroupWhitelistPlugin
 version: '${version}'
 main: voidpointer.spigot.groupwhitelist.GroupWhitelistPlugin
-api-version: 1.19
+api-version: 1.20
 author: _voidpointer
 website: https://t.me/voidpointer0x00
 
