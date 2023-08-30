@@ -4,6 +4,7 @@ main: voidpointer.spigot.groupwhitelist.GroupWhitelistPlugin
 api-version: 1.20
 author: _voidpointer
 website: https://t.me/voidpointer0x00
+folia-supported: true
 
 libraries:
   - 'org.spongepowered:configurate-yaml:4.1.2'
