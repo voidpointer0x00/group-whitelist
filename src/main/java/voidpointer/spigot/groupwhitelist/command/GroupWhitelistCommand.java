@@ -62,7 +62,7 @@ public final class GroupWhitelistCommand extends BaseCommand {
     @Subcommand("ls")
     @CommandPermission("group-whitelist.list")
     @Description("Gets a list of whitelisted groups")
-    private void remove(final CommandSender sender) {
+    private void list(final CommandSender sender) {
         final Set<String> whitelistedGroups = whitelistConfig.whitelistGroups();
         final String groupsFormatted = whitelistedGroups.stream()
                 .collect(Collectors.joining(locale.raw(GROUPS_DELIMITER)));
