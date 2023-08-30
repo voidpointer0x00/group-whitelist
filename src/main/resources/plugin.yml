@@ -1,0 +1,9 @@
+name: GroupWhitelistPlugin
+version: '${version}'
+main: voidpointer.spigot.groupwhitelist.GroupWhitelistPlugin
+api-version: 1.19
+author: _voidpointer
+website: https://t.me/voidpointer0x00
+
+libraries:
+  - 'org.spongepowered:configurate-yaml:4.1.2'
