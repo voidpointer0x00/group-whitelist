@@ -3,7 +3,6 @@ package voidpointer.spigot.groupwhitelist.listener;
 import lombok.AllArgsConstructor;
 import lombok.Setter;
 import net.luckperms.api.LuckPermsProvider;
-import net.luckperms.api.model.group.Group;
 import net.luckperms.api.model.user.UserManager;
 import net.luckperms.api.query.Flag;
 import net.luckperms.api.query.QueryOptions;
@@ -44,7 +43,7 @@ public final class PlayerListener implements Listener {
             return;
         boolean isAllowed = Optional.ofNullable(userManager.getUser(event.getUniqueId()))
                 .map(user -> user.getInheritedGroups(GROUPS_SEARCH_OPTIONS))
-                .map(groups -> groups.stream().map(Group::getName).anyMatch(whitelistConfig::isGroupWhitelisted))
+                .map(groups -> groups.stream().anyMatch(whitelistConfig::isGroupWhitelisted))
                 .orElse(false);
         if (!isAllowed) {
             event.setLoginResult(KICK_WHITELIST);

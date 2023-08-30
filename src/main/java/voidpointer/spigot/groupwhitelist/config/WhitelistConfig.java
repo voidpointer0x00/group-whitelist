@@ -3,6 +3,7 @@ package voidpointer.spigot.groupwhitelist.config;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import net.luckperms.api.model.group.Group;
 import org.spongepowered.configurate.objectmapping.ConfigSerializable;
 import org.spongepowered.configurate.objectmapping.meta.Comment;
 
@@ -45,8 +46,8 @@ public final class WhitelistConfig {
         return isEnabled && !(isEnabled = false);
     }
 
-    public boolean isGroupWhitelisted(final String groupName) {
-        return whitelistGroups != null && whitelistGroups.contains(groupName);
+    public boolean isGroupWhitelisted(final Group group) {
+        return whitelistGroups != null && whitelistGroups.contains(group.getName());
     }
 
     public Set<String> whitelistGroups() {
