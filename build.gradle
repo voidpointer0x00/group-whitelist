@@ -1,11 +1,15 @@
+import com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar
+
 plugins {
-    id 'com.github.johnrengelman.shadow' version '7.1.2'
     id 'java'
+    id 'io.github.goooler.shadow' version '8.1.7'
     id 'io.freefair.lombok' version '8.6'
+    id 'org.ajoberstar.grgit' version '5.2.2'
 }
 
 group = 'ru.voidpointer.spigot'
 version = '1.1.0'
+version_with_commit = grgit.head() != null ? "$version+${grgit.head().abbreviatedId}" : version
 
 repositories {
     mavenCentral()
@@ -22,7 +26,7 @@ dependencies {
     compileOnly 'org.jetbrains:annotations:24.1.0'                  /* @NotNull etc. */
     compileOnly 'net.jcip:jcip-annotations:1.0'                     /* @ThreadSafe etc. */
 
-    implementation 'co.aikar:acf-paper:0.5.1-SNAPSHOT'; /* paper commands framework */
+    implementation 'co.aikar:acf-paper:0.5.1-SNAPSHOT' /* paper commands framework */
 
     testImplementation 'org.testng:testng:7.10.2' /* fuck JUnit */
 }
@@ -41,6 +45,15 @@ java {
     }
 }
 
+shadowJar {
+    archiveClassifier.unset()
+}
+
+tasks.named('shadowJar', ShadowJar) {
+    enableRelocation = true
+    relocationPrefix = 'voidpointer.spigot.groupwhitelist.libs'
+}
+
 tasks.withType(JavaCompile).configureEach {
     if (targetJavaVersion >= 10 || JavaVersion.current().isJava10Compatible()) {
         options.release = targetJavaVersion
@@ -48,7 +61,7 @@ tasks.withType(JavaCompile).configureEach {
 }
 
 processResources {
-    def props = [version: version]
+    def props = [version_with_commit: version_with_commit]
     inputs.properties props
     filteringCharset 'UTF-8'
     filesMatching('plugin.yml') {

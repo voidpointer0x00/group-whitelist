@@ -1,5 +1,5 @@
 name: GroupWhitelistPlugin
-version: '${version}'
+version: '${version_with_commit}'
 main: voidpointer.spigot.groupwhitelist.GroupWhitelistPlugin
 api-version: 1.20
 author: _voidpointer
