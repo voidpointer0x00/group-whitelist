@@ -3,6 +3,7 @@ package voidpointer.spigot.groupwhitelist.config;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.experimental.Accessors;
 import net.luckperms.api.model.group.Group;
 import org.spongepowered.configurate.objectmapping.ConfigSerializable;
 import org.spongepowered.configurate.objectmapping.meta.Comment;
@@ -13,6 +14,8 @@ import java.util.concurrent.ConcurrentHashMap;
 import static java.util.Collections.emptySet;
 import static java.util.Collections.unmodifiableSet;
 
+@Getter
+@Accessors(fluent = true)
 @NoArgsConstructor
 @AllArgsConstructor
 @ConfigSerializable
@@ -20,14 +23,14 @@ public final class WhitelistConfig {
     @Comment("A list of groups that are allowed on the server")
     private Set<String> whitelistGroups = Set.of("whitelisted");
 
-    @Getter
     @Comment("Whether to filter joining players based on whitelist group")
     private boolean isEnabled = false;
 
     @Comment("Whether to automatically kick players if their group was removed from the whitelist")
     private boolean shouldKickRemovedGroups = true;
 
-    public boolean shouldKickRemovedGroups() { return shouldKickRemovedGroups; }
+    @Comment("Whether if the plugin should cancel server list ping event")
+    private boolean shouldDropPing = false;
 
     /**
      * Turns on this whitelist and returns

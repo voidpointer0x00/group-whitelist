@@ -8,6 +8,7 @@ import voidpointer.spigot.groupwhitelist.config.WhitelistConfig;
 import voidpointer.spigot.groupwhitelist.config.loader.ConfigLoader;
 import voidpointer.spigot.groupwhitelist.config.reload.AutoReloadConfigService;
 import voidpointer.spigot.groupwhitelist.event.WhitelistGroupRemoveEvent;
+import voidpointer.spigot.groupwhitelist.listener.PingListener;
 import voidpointer.spigot.groupwhitelist.listener.PlayerListener;
 import voidpointer.spigot.groupwhitelist.listener.WhitelistListener;
 import voidpointer.spigot.groupwhitelist.locale.Locale;
@@ -25,6 +26,7 @@ public final class GroupWhitelistPlugin extends JavaPlugin {
 
     private WhitelistService whitelistService;
 
+    private PingListener pingListener;
     private PlayerListener playerListener;
     private WhitelistListener whitelistListener;
     private GroupWhitelistCommand groupWhitelistCommand;
@@ -37,6 +39,7 @@ public final class GroupWhitelistPlugin extends JavaPlugin {
     @Override public void onEnable() {
         whitelistService = new WhitelistService(whitelistConfig, whitelistConfigLoader);
         /* events */
+        this.pingListener = new PingListener(whitelistConfig).register(this);
         this.playerListener = new PlayerListener(whitelistConfig, localeConfig).register(this);
         this.whitelistListener = new WhitelistListener(this, whitelistConfig, localeConfig).register(this);
         /* commands */
@@ -75,6 +78,8 @@ public final class GroupWhitelistPlugin extends JavaPlugin {
     }
 
     private void onConfigReload(final WhitelistConfig whitelistConfig) {
+        if (pingListener != null)
+            pingListener.setWhitelistConfig(whitelistConfig);
         if (playerListener != null)
             playerListener.setWhitelistConfig(whitelistConfig);
         if (whitelistListener != null)
@@ -96,6 +101,8 @@ public final class GroupWhitelistPlugin extends JavaPlugin {
     }
 
     private void onLocaleReload(final LocaleConfig localeConfig) {
+        if (pingListener != null)
+            pingListener.setWhitelistConfig(whitelistConfig);
         if (playerListener != null)
             playerListener.setLocale(localeConfig);
         if (whitelistListener != null)
