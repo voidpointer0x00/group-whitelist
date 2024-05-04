@@ -42,7 +42,7 @@ jobs:
   publish:
     name: publish release
     runs-on: ubuntu-latest
-    needs: release
+    needs: release-please
     if: ${{ needs.release.outputs.paths_released != '[]' }}
     strategy:
       fail-fast: false
