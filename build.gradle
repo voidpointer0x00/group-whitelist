@@ -1,10 +1,11 @@
 plugins {
     id 'com.github.johnrengelman.shadow' version '7.1.2'
     id 'java'
+    id 'io.freefair.lombok' version '8.6'
 }
 
 group = 'ru.voidpointer.spigot'
-version = '1.0.0'
+version = '1.1.0'
 
 repositories {
     mavenCentral()
@@ -14,21 +15,14 @@ repositories {
 }
 
 dependencies {
-    /* runtime dependencies */
-    compileOnly 'io.papermc.paper:paper-api:1.20.1-R0.1-SNAPSHOT' /* minecraft server */
-    compileOnly 'net.luckperms:api:5.4' /* permissions plugin */
-    compileOnly 'org.spongepowered:configurate-yaml:4.1.2' /* yaml configuration */
+    compileOnly 'io.papermc.paper:paper-api:1.20.1-R0.1-SNAPSHOT'   /* minecraft server */
+    compileOnly 'net.luckperms:api:5.4'                             /* permissions plugin */
+    compileOnly 'org.spongepowered:configurate-yaml:4.1.2'          /* yaml configuration */
+    compileOnly 'org.jetbrains:annotations:24.0.1'                  /* @NotNull etc. */
+    compileOnly 'net.jcip:jcip-annotations:1.0'                     /* @ThreadSafe etc. */
 
-    /* shaded-in (gradle shadow plugin) */
     implementation 'co.aikar:acf-paper:0.5.1-SNAPSHOT'; /* paper commands framework */
 
-    /* annotations: @NotNull, @Getter, @ThreadSafe etc. */
-    compileOnly 'org.projectlombok:lombok:1.18.26'
-    annotationProcessor 'org.projectlombok:lombok:1.18.26'
-    compileOnly 'org.jetbrains:annotations:24.0.1'
-    compileOnly 'net.jcip:jcip-annotations:1.0'
-
-    /* test dependencies */
     testImplementation 'org.testng:testng:7.8.0' /* fuck JUnit */
 }
 
