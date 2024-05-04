@@ -15,22 +15,23 @@ repositories {
 }
 
 dependencies {
+    //noinspection VulnerableLibrariesLocal
     compileOnly 'io.papermc.paper:paper-api:1.20.1-R0.1-SNAPSHOT'   /* minecraft server */
     compileOnly 'net.luckperms:api:5.4'                             /* permissions plugin */
     compileOnly 'org.spongepowered:configurate-yaml:4.1.2'          /* yaml configuration */
-    compileOnly 'org.jetbrains:annotations:24.0.1'                  /* @NotNull etc. */
+    compileOnly 'org.jetbrains:annotations:24.1.0'                  /* @NotNull etc. */
     compileOnly 'net.jcip:jcip-annotations:1.0'                     /* @ThreadSafe etc. */
 
     implementation 'co.aikar:acf-paper:0.5.1-SNAPSHOT'; /* paper commands framework */
 
-    testImplementation 'org.testng:testng:7.8.0' /* fuck JUnit */
+    testImplementation 'org.testng:testng:7.10.2' /* fuck JUnit */
 }
 
 test {
     useTestNG()
 }
 
-def targetJavaVersion = 17
+def targetJavaVersion = 21
 java {
     def javaVersion = JavaVersion.toVersion(targetJavaVersion)
     sourceCompatibility = javaVersion
