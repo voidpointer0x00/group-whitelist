@@ -29,8 +29,8 @@ public final class WhitelistConfig {
     @Comment("Whether to automatically kick players if their group was removed from the whitelist")
     private boolean shouldKickRemovedGroups = true;
 
-    @Comment("Whether if the plugin should cancel server list ping event")
-    private boolean shouldDropPing = false;
+    @Comment("Whether if the plugin should hide server status in players server list")
+    private boolean hideStatus = false;
 
     /**
      * Turns on this whitelist and returns

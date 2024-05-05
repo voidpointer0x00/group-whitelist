@@ -24,6 +24,6 @@ public final class PingListener implements Listener {
     @EventHandler
     private void dropForNonWhitelisted(@NotNull final PaperServerListPingEvent event) {
         if (whitelistConfig.isEnabled())
-            event.setCancelled(whitelistConfig.shouldDropPing());
+            event.setCancelled(whitelistConfig.hideStatus());
     }
 }
