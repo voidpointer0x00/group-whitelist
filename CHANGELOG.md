@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.1.1](https://github.com/voidpointer0x00/group-whitelist/compare/v1.1.0...v1.1.1) (2024-05-05)
+
+
+### Reverts
+
+* release 1.1.0 ([85047df](https://github.com/voidpointer0x00/group-whitelist/commit/85047df132517b8d2a34fb1299e619abbcef7315))
+
 ## [1.1.0](https://github.com/voidpointer0x00/group-whitelist/compare/1.0.0...v1.1.0) (2024-05-05)
 
 
