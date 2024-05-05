@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.2.1](https://github.com/voidpointer0x00/group-whitelist/compare/v1.2.0...v1.2.1) (2024-05-05)
+
+
+### Reverts
+
+* the different approach didn't go exactly as planned ([b590b23](https://github.com/voidpointer0x00/group-whitelist/commit/b590b23c32b89d85e29aeee94f3386a057c09adc))
+
 ## [1.2.0](https://github.com/voidpointer0x00/group-whitelist/compare/v1.1.0...v1.2.0) (2024-05-04)
 
 
