@@ -22,6 +22,13 @@ jobs:
         uses: gradle/actions/setup-gradle@v3
       - name: execute gradle build
         run: ./gradlew build
+      - name: capture build artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: libs
+          path: build/libs/
+          retention-days: 5
+          overwrite: true
 
   release-please:
     needs: [ build ]
@@ -36,8 +43,12 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
           config-file: .github/config/release-please.json
           manifest-file: .github/config/.release-please-manifest.json
-      - name: upload release artifacts
+      - name: download release artifacts
         if: ${{ steps.release.outputs.release_created }}
+        uses: actions/download-artifact@v4
+        with:
+          name: libs
+      - name: upload release artifacts
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
