@@ -43,6 +43,9 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
           config-file: .github/config/release-please.json
           manifest-file: .github/config/.release-please-manifest.json
+      - name: checkout repository
+        if: ${{ steps.release.outputs.release_created }}
+        uses: actions/checkout@v4
       - name: download release artifacts
         if: ${{ steps.release.outputs.release_created }}
         uses: actions/download-artifact@v4
