@@ -4,6 +4,7 @@
   "bump-patch-for-minor-pre-major": true,
   "pull-request-title-pattern": "Release ${version}",
   "extra-files": [ "gradle.properties" ],
+  "include-v-in-tag": false,
   "packages": {
     ".": {
       "component": "group-whitelist",
