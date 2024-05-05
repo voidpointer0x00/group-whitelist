@@ -1,5 +1,18 @@
 # Changelog
 
+## [1.1.1](https://github.com/voidpointer0x00/group-whitelist/compare/1.1.0...1.1.1) (2024-05-05)
+
+
+### Bug Fixes
+
+* **build:** not a git repository ([b5c8415](https://github.com/voidpointer0x00/group-whitelist/commit/b5c8415943aead8c9f7eabced2f931fa4754c393))
+
+
+### Reverts
+
+* release 1.1.0 ([85047df](https://github.com/voidpointer0x00/group-whitelist/commit/85047df132517b8d2a34fb1299e619abbcef7315))
+* the different approach didn't go exactly as planned ([b590b23](https://github.com/voidpointer0x00/group-whitelist/commit/b590b23c32b89d85e29aeee94f3386a057c09adc))
+
 ## [1.1.0](https://github.com/voidpointer0x00/group-whitelist/compare/1.0.0...1.1.0) (2024-05-05)
 
 
