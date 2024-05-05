@@ -49,6 +49,7 @@ jobs:
         with:
           name: libs
       - name: upload release artifacts
+        if: ${{ steps.release.outputs.release_created }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
