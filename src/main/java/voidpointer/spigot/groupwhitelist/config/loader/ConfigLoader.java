@@ -51,11 +51,11 @@ public class ConfigLoader<ConfigT> {
 
     public ConfigT loadAndSaveDefaultIfNotExists() {
         return path.toFile().exists()
-                ? YamlConfigLoader.load(path, configClass, defaultSupplier)
-                : YamlConfigLoader.loadAndSave(path, configClass, defaultSupplier);
+                ? HoconConfigLoader.load(path, configClass, defaultSupplier)
+                : HoconConfigLoader.loadAndSave(path, configClass, defaultSupplier);
     }
 
     public void save(final ConfigT configT) {
-        YamlConfigLoader.save(path, configT);
+        HoconConfigLoader.save(path, configT);
     }
 }

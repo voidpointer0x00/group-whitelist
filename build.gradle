@@ -15,15 +15,17 @@ repositories {
     maven { url 'https://repo.papermc.io/repository/maven-public/' }
     maven { url 'https://oss.sonatype.org/content/groups/public/' }
     maven { url 'https://repo.aikar.co/content/groups/aikar/' }
+    maven { url 'https://repo.dmulloy2.net/repository/public/' } /* protocol lib */
 }
 
 dependencies {
     //noinspection VulnerableLibrariesLocal
     compileOnly 'io.papermc.paper:paper-api:1.20.1-R0.1-SNAPSHOT'   /* minecraft server */
     compileOnly 'net.luckperms:api:5.4'                             /* permissions plugin */
-    compileOnly 'org.spongepowered:configurate-yaml:4.1.2'          /* yaml configuration */
+    compileOnly 'org.spongepowered:configurate-hocon:4.1.2'         /* hocon configuration */
     compileOnly 'org.jetbrains:annotations:24.1.0'                  /* @NotNull etc. */
     compileOnly 'net.jcip:jcip-annotations:1.0'                     /* @ThreadSafe etc. */
+    compileOnly 'com.comphenix.protocol:ProtocolLib:5.1.0'          /* lib for custom/modified packets */
 
     implementation 'co.aikar:acf-paper:0.5.1-SNAPSHOT' /* paper commands framework */
 

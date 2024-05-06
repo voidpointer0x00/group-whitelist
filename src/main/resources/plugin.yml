@@ -11,4 +11,4 @@ softdepend:
   - ProtocolLib
 
 libraries:
-  - 'org.spongepowered:configurate-yaml:4.1.2'
+  - 'org.spongepowered:configurate-hocon:4.1.2'
