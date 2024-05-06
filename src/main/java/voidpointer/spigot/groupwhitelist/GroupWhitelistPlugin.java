@@ -101,8 +101,6 @@ public final class GroupWhitelistPlugin extends JavaPlugin {
     }
 
     private void onLocaleReload(final LocaleConfig localeConfig) {
-        if (pingListener != null)
-            pingListener.setWhitelistConfig(whitelistConfig);
         if (playerListener != null)
             playerListener.setLocale(localeConfig);
         if (whitelistListener != null)
