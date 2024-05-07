@@ -23,7 +23,7 @@ public class ConfigLoader<ConfigT> {
             throws IllegalArgumentException {
         String kebabCasedClassName = configClass.getSimpleName().replaceAll("([a-z])([A-Z])", "$1-$2")
                 .toLowerCase();
-        this.path = pathToDataFolder.resolve(kebabCasedClassName + ".yml");
+        this.path = pathToDataFolder.resolve(kebabCasedClassName + ".conf");
         this.configClass = configClass;
 
         final Constructor<ConfigT> constructor;
