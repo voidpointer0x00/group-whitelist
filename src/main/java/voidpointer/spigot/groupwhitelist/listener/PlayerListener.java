@@ -39,6 +39,8 @@ public final class PlayerListener implements Listener {
 
     @EventHandler
     public void onPlayerPreLogin(final AsyncPlayerPreLoginEvent event) {
+        /* TODO because the secret is now in hostname, it is possible to compare it here, so do that,
+         *  if missing ProtocolLib <-> protocol listener cannot compare those. */
         if (!whitelistConfig.isEnabled())
             return;
         boolean isAllowed = Optional.ofNullable(userManager.getUser(event.getUniqueId()))
